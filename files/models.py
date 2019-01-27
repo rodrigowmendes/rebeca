@@ -71,40 +71,6 @@ class YesOrNoChoices(DjangoChoices):
     no_choice = ChoiceItem('n', 'Não')
 
 
-class PersonWithDisease(models.Model):
-    class Meta:
-        verbose_name = 'Pessoa com doença na família'
-        verbose_name_plural = 'Pessoas com doenças nas famílias'
-
-    # kinship choices
-    class KinshipChoices(DjangoChoices):
-        first_choice = ChoiceItem('1', 'Pai')
-        second_choice = ChoiceItem('2', 'Mãe')
-        third_choice = ChoiceItem('3', 'Irmão / irmã')
-        fourth_choice = ChoiceItem('4', 'Filhx')
-        fifth_choice = ChoiceItem('5', 'Outros')
-
-
-    name = models.CharField(max_length=50, verbose_name="Nome")
-    kinship = models.CharField(
-            max_length=1,
-            verbose_name="Parentesco",
-            choices=KinshipChoices.choices,
-            null=False
-            )
-    disease = models.ForeignKey(
-            Disease, 
-            on_delete=models.CASCADE,
-            verbose_name="Doença"
-            )
-    treatment = models.CharField(
-            max_length=1,
-            verbose_name="Faz tratamento",
-            choices=YesOrNoChoices.choices,
-            null=False
-            )
-
-
 class Record(models.Model):
     class Meta:
         verbose_name = 'Questionário'
@@ -231,11 +197,15 @@ class Record(models.Model):
         verbose_name='Origem da medicação',
         null=False
     )
-    diseases_in_family = models.ManyToManyField(
-        PersonWithDisease,
-        verbose_name='Pessoas com doenças na família',
-        blank=True
-    )
+    health_problems_in_family = models.ManyToManyField(
+            Disease,
+            verbose_name="Problemas de saúde na família"
+            )
+    problems_are_treated = models.CharField(
+            max_length=1,
+            verbose_name="Problemas são tratados",
+            choices=YesOrNoChoices.choices
+            )
     old_people_in_family = models.CharField(
             max_length=1,
             verbose_name="Idosos na família",
@@ -244,6 +214,21 @@ class Record(models.Model):
     disabled_in_family = models.CharField(
             max_length=1,
             verbose_name="Deficientes na família",
+            choices=YesOrNoChoices.choices
+            )
+    early_pregnancy = models.CharField(
+            max_length=1,
+            verbose_name="Gravidez precoce",
+            choices=YesOrNoChoices.choices
+            )
+    pregnant_or_lactating = models.CharField(
+            max_length=1,
+            verbose_name="Gestante ou lactante",
+            choices=YesOrNoChoices.choices
+            )
+    alcohol_or_drug_user = models.CharField(
+            max_length=1,
+            verbose_name="Usuário de álcool ou drogas",
             choices=YesOrNoChoices.choices
             )
     

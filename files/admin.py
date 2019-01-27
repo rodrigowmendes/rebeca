@@ -28,9 +28,13 @@ class RecordAdmin(admin.ModelAdmin):
                 'medication_origin'
                 ]}),
             ('Informações adicionais', {'fields': [
-                'diseases_in_family',
+                'health_problems_in_family',
+                'problems_are_treated',
+                'disabled_in_family',
+                'early_pregnancy',
+                'pregnant_or_lactating',
+                'alcohol_or_drug_user',
                 'old_people_in_family',
-                'disabled_in_family'
                 ]})
             ]
     search_fields = ('name', 'cpf', 'neighborhood', 'natural_from')
@@ -40,6 +44,5 @@ admin.site.register(models.City)
 admin.site.register(models.Neighborhood)
 admin.site.register(models.SocialBenefit)
 admin.site.register(models.Disease)
-admin.site.register(models.PersonWithDisease)
 
 
