@@ -171,40 +171,41 @@ class Record(models.Model):
         max_length=32, 
         choices=SourceOfIncome.choices,
         verbose_name='Fonte da renda'
-    )
-    social_benefit = models.ForeignKey(
+        )
+    social_benefit = models.ManyToManyField(
         SocialBenefit,
         verbose_name='Benefício social',
-        on_delete=models.CASCADE,
         blank=True
-    )
+        )
     housing_condition = models.CharField(
         max_length=32,
         choices=HousingCondition.choices,
         verbose_name='Condição de moradia',
         null=False
-    )
+        )
     treatment = models.CharField(
         max_length=32,
         choices=TreatmentTime.choices,
         verbose_name='Tempo de tratamento',
         null=False
-    )
+        )
     # use_of_medication 
     medication_origin = models.CharField(
         max_length=32,
         choices=MedicationOrigin.choices,
         verbose_name='Origem da medicação',
         null=False
-    )
+        )
     health_problems_in_family = models.ManyToManyField(
             Disease,
-            verbose_name="Problemas de saúde na família"
+            verbose_name="Problemas de saúde na família",
+            blank=True
             )
     problems_are_treated = models.CharField(
             max_length=1,
             verbose_name="Problemas são tratados",
-            choices=YesOrNoChoices.choices
+            choices=YesOrNoChoices.choices,
+            blank=True
             )
     old_people_in_family = models.CharField(
             max_length=1,
@@ -237,7 +238,13 @@ class Record(models.Model):
         return str(self.estimated_income / self.family_composition)
 
     def __str__(self):
-        return self.name
+        return '{0}.{1}'.format(
+            self.name,
+            self.neighborhood,
+            self.scholarity,
+            self.estimated_income,
+            self.treatment
+        )
 
 
 

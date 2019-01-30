@@ -37,7 +37,14 @@ class RecordAdmin(admin.ModelAdmin):
                 'old_people_in_family',
                 ]})
             ]
-    search_fields = ('name', 'cpf', 'neighborhood', 'natural_from')
+    search_fields = ('name', 'cpf')
+    list_display = (
+        'name', 
+        'neighborhood',
+        'scholarity',
+        'estimated_income',
+        'treatment',
+        )
 
 
 admin.site.register(models.City)
