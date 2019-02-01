@@ -200,7 +200,7 @@ class Record(models.Model):
         null=False
         )
     health_problems_in_family = models.TextField(
-        max_length=100,
+        max_length=10ss0,
         verbose_name='Doenças/ problemas de saúde na família'
     )
     problems_are_treated = models.CharField(
@@ -234,10 +234,6 @@ class Record(models.Model):
             verbose_name="Usuário de álcool ou drogas",
             choices=YesOrNoChoices.choices
             )
-
-    # calculating the income per person
-    def income_per_person(self):
-        return str(self.estimated_income / self.family_composition)
 
     def __str__(self):
         return '{0}.{1}'.format(
