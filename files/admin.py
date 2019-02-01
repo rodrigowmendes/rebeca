@@ -18,7 +18,7 @@ class RecordAdmin(admin.ModelAdmin):
                 'family_composition',
                 'estimated_income',
                 'source_of_income',
-                'social_benefit',
+                'social_benefits',
                 'debts',
                 'housing_condition'
                 ]}),
@@ -28,18 +28,18 @@ class RecordAdmin(admin.ModelAdmin):
                 'medication_origin'
                 ]}),
             ('Informações adicionais', {'fields': [
-                'health_problems_in_family',
-                'problems_are_treated',
                 'disabled_in_family',
                 'early_pregnancy',
                 'pregnant_or_lactating',
                 'alcohol_or_drug_user',
                 'old_people_in_family',
+                'health_problems_in_family',
+                'problems_are_treated',
                 ]})
             ]
     search_fields = ('name', 'cpf')
     list_display = (
-        'name', 
+        'name',
         'neighborhood',
         'scholarity',
         'estimated_income',
@@ -49,7 +49,3 @@ class RecordAdmin(admin.ModelAdmin):
 
 admin.site.register(models.City)
 admin.site.register(models.Neighborhood)
-admin.site.register(models.SocialBenefit)
-admin.site.register(models.Disease)
-
-

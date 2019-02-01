@@ -2,14 +2,50 @@ from django.db import models
 from djchoices import DjangoChoices, ChoiceItem
 
 
+class FederalUnitsChoices(DjangoChoices):
+    ac = ChoiceItem('AC', 'Acre (AC)')
+    al = ChoiceItem('AL', 'Alagoas (AL)')
+    ap = ChoiceItem('AP', 'Amapá (AP)')
+    am = ChoiceItem('AM', 'Amazonas (AM)')
+    ba = ChoiceItem('BA', 'Bahia (BA)')
+    ce = ChoiceItem('CE', 'Ceará (CE)')
+    df = ChoiceItem('DF', 'Distrito Federal (DF)')
+    es = ChoiceItem('ES', 'Espírito Santo (ES)')
+    go = ChoiceItem('GO', 'Goiás (GO)')
+    ma = ChoiceItem('MA', 'Maranhão (MA)')
+    mt = ChoiceItem('MT', 'Mato Grosso (MT)')
+    ms = ChoiceItem('MS', 'Mato Grosso do Sul (MS)')
+    mg = ChoiceItem('MG', 'Minas Gerais (MG)')
+    pa = ChoiceItem('PA', 'Pará (PA)')
+    pb = ChoiceItem('PB', 'Paraíba (PB)')
+    pr = ChoiceItem('PR', 'Paraná (PR)')
+    pe = ChoiceItem('PE', 'Pernambuco (PE)')
+    pi = ChoiceItem('PI', 'Piauí (PI)')
+    rj = ChoiceItem('RJ', 'Rio de Janeiro (RJ)')
+    rn = ChoiceItem('RN', 'Rio Grande do Norte (RN)')
+    rs = ChoiceItem('RS', 'Rio Grande do Sul (RS)')
+    ro = ChoiceItem('RO', 'Rondônia (RO)')
+    rr = ChoiceItem('RR', 'Roraima (RR)')
+    sc = ChoiceItem('SC', 'Santa Catarina (SC)')
+    sp = ChoiceItem('SP', 'São Paulo (SP)')
+    se = ChoiceItem('SE', 'Sergipe (SE)')
+    to = ChoiceItem('TO', 'Tocantins (TO)')
+
+
 class City(models.Model):
     name = models.CharField(
-        max_length=100, 
+        max_length=100,
         verbose_name='Nome da cidade',
         unique=True,
         null=False
         )
-    
+    federal_unit = models.CharField(
+        max_length=2,
+        verbose_name='UF',
+        choices = FederalUnitsChoices.choices,
+        null=False
+    )
+
     class Meta:
         verbose_name = 'Cidade'
         verbose_name_plural = 'Cidades'
@@ -20,7 +56,7 @@ class City(models.Model):
 
 class Neighborhood(models.Model):
     name = models.CharField(
-        max_length=100, 
+        max_length=100,
         verbose_name='Nome do bairro',
         unique=True,
         null=False
@@ -32,38 +68,6 @@ class Neighborhood(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class SocialBenefit(models.Model):
-    name = models.CharField(
-        max_length=100, 
-        verbose_name='Nome do benefício',
-        unique=True,
-        null=False
-        )
-    
-    class Meta:
-        verbose_name = 'Benefício social'
-        verbose_name_plural = 'Benefícios sociais'
-
-    def __str__(self):
-        return self.name 
-
-
-class Disease(models.Model):
-    name = models.CharField(
-        max_length=100, 
-        verbose_name='Nome da doença',
-        unique=True,
-        null=False
-        )
-    
-    class Meta:
-        verbose_name = 'Doença'
-        verbose_name_plural = 'Doenças'
-
-    def __str__(self):
-        return self.name 
 
 # yes or no choices
 class YesOrNoChoices(DjangoChoices):
@@ -110,7 +114,7 @@ class Record(models.Model):
         first_choice = ChoiceItem('1', 'Farmácia municipal')
         second_choice = ChoiceItem('2', 'Compra')
         third_choice = ChoiceItem('3', 'Outros')
-    
+
     # estimated income choices
     class EstimatedIncome(DjangoChoices):
         first_choice = ChoiceItem('1', 'Até um salário mínimo')
@@ -120,7 +124,7 @@ class Record(models.Model):
 
 
     name = models.CharField(
-        max_length=100, 
+        max_length=100,
         verbose_name='Nome da pessoa usuária',
         null=False
         )
@@ -132,13 +136,13 @@ class Record(models.Model):
         null=False
     )
     natural_from = models.ForeignKey(
-        City, 
-        verbose_name='Naturalidade', 
+        City,
+        verbose_name='Naturalidade',
         on_delete=models.CASCADE
         )
     cpf = models.CharField(
-        max_length=11, 
-        verbose_name='CPF ', 
+        max_length=11,
+        verbose_name='CPF ',
         unique=True,
         null=False
         )
@@ -155,7 +159,7 @@ class Record(models.Model):
         )
     agreement = models.CharField(
         max_length=1,
-        verbose_name='Convênio',
+        verbose_name='Possui convênio',
         choices=YesOrNoChoices.choices
         )
     family_composition = models.IntegerField(
@@ -168,14 +172,13 @@ class Record(models.Model):
         verbose_name='Renda estimada',
         )
     source_of_income = models.CharField(
-        max_length=32, 
+        max_length=32,
         choices=SourceOfIncome.choices,
         verbose_name='Fonte da renda'
         )
-    social_benefit = models.ManyToManyField(
-        SocialBenefit,
-        verbose_name='Benefício social',
-        blank=True
+    social_benefits = models.TextField(
+        max_length=100,
+        verbose_name='Benefícios sociais',
         )
     housing_condition = models.CharField(
         max_length=32,
@@ -189,21 +192,20 @@ class Record(models.Model):
         verbose_name='Tempo de tratamento',
         null=False
         )
-    # use_of_medication 
+    # use_of_medication
     medication_origin = models.CharField(
         max_length=32,
         choices=MedicationOrigin.choices,
         verbose_name='Origem da medicação',
         null=False
         )
-    health_problems_in_family = models.ManyToManyField(
-            Disease,
-            verbose_name="Problemas de saúde na família",
-            blank=True
-            )
+    health_problems_in_family = models.TextField(
+        max_length=100,
+        verbose_name='Doenças/ problemas de saúde na família'
+    )
     problems_are_treated = models.CharField(
             max_length=1,
-            verbose_name="Problemas são tratados",
+            verbose_name="Doenças/ problemas de saúde são tratados",
             choices=YesOrNoChoices.choices,
             blank=True
             )
@@ -232,7 +234,7 @@ class Record(models.Model):
             verbose_name="Usuário de álcool ou drogas",
             choices=YesOrNoChoices.choices
             )
-    
+
     # calculating the income per person
     def income_per_person(self):
         return str(self.estimated_income / self.family_composition)
@@ -245,13 +247,3 @@ class Record(models.Model):
             self.estimated_income,
             self.treatment
         )
-
-
-
-
-    
-
-
-
-
-
