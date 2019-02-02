@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'files.apps.FilesConfig',
+    'social_cards.apps.SocialCardsConfig',
 ]
 
 MIDDLEWARE = [

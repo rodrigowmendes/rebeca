@@ -200,7 +200,7 @@ class Record(models.Model):
         null=False
         )
     health_problems_in_family = models.TextField(
-        max_length=10ss0,
+        max_length=100,
         verbose_name='Doenças/ problemas de saúde na família'
     )
     problems_are_treated = models.CharField(
