@@ -89,6 +89,22 @@ class Record(models.Model):
         fifth_choice = ChoiceItem('5', 'Ensino superior incompleto')
         sixth_choice = ChoiceItem('6', 'Ensino superior completo')
 
+    # gender choices
+    class Gender(DjangoChoices):
+        MALE = ChoiceItem('1', 'Masculino')
+        FEMALE = ChoiceItem('2', 'Feminino')
+        TRANSGENDER = ChoiceItem('3', 'Transgênero')
+        NON_BINARY = ChoiceItem('4', 'Não binário')
+        ANOTHER = ChoiceItem('5', 'Outros')
+
+    # race/color choices
+    class Race(DjangoChoices):
+        WHITE = ChoiceItem('1', 'Branca')
+        BLACK = ChoiceItem('2', 'Preta')
+        BROWN = ChoiceItem('3', 'Parda')
+        YELLOW = ChoiceItem('4', 'Amarela')
+        INDIGENOUS = ChoiceItem('5', 'Indígena')
+
     # source of income choices
     class SourceOfIncome(DjangoChoices):
         first_choice = ChoiceItem('1', 'Informal apenas')
@@ -146,6 +162,19 @@ class Record(models.Model):
         unique=True,
         null=False
         )
+    gender = models.CharField(
+        max_length=1,
+        verbose_name='Gênero',
+        choices=Gender.choices,
+        default="Não declarado"
+        )
+    race = models.CharField(
+        max_length=1,
+        verbose_name='Cor ou raça',
+        choices=Race.choices,
+        default="Não declarada"
+        )
+
     scholarity = models.CharField(
         max_length=1,
         verbose_name='Escolaridade',
@@ -177,7 +206,7 @@ class Record(models.Model):
         verbose_name='Fonte da renda'
         )
     social_benefits = models.TextField(
-        max_length=100,
+        max_length=240,
         verbose_name='Benefícios sociais',
         )
     housing_condition = models.CharField(
@@ -200,7 +229,7 @@ class Record(models.Model):
         null=False
         )
     health_problems_in_family = models.TextField(
-        max_length=100,
+        max_length=240,
         verbose_name='Doenças/ problemas de saúde na família'
     )
     problems_are_treated = models.CharField(
@@ -239,6 +268,8 @@ class Record(models.Model):
         return '{0}.{1}'.format(
             self.name,
             self.neighborhood,
+            self.gender,
+            self.race,
             self.scholarity,
             self.estimated_income,
             self.treatment
