@@ -2,36 +2,21 @@ from django.db import models
 from djchoices import DjangoChoices, ChoiceItem
 
 
-class FederalUnitsChoices(DjangoChoices):
-    ac = ChoiceItem('AC', 'Acre (AC)')
-    al = ChoiceItem('AL', 'Alagoas (AL)')
-    ap = ChoiceItem('AP', 'Amapá (AP)')
-    am = ChoiceItem('AM', 'Amazonas (AM)')
-    ba = ChoiceItem('BA', 'Bahia (BA)')
-    ce = ChoiceItem('CE', 'Ceará (CE)')
-    df = ChoiceItem('DF', 'Distrito Federal (DF)')
-    es = ChoiceItem('ES', 'Espírito Santo (ES)')
-    go = ChoiceItem('GO', 'Goiás (GO)')
-    ma = ChoiceItem('MA', 'Maranhão (MA)')
-    mt = ChoiceItem('MT', 'Mato Grosso (MT)')
-    ms = ChoiceItem('MS', 'Mato Grosso do Sul (MS)')
-    mg = ChoiceItem('MG', 'Minas Gerais (MG)')
-    pa = ChoiceItem('PA', 'Pará (PA)')
-    pb = ChoiceItem('PB', 'Paraíba (PB)')
-    pr = ChoiceItem('PR', 'Paraná (PR)')
-    pe = ChoiceItem('PE', 'Pernambuco (PE)')
-    pi = ChoiceItem('PI', 'Piauí (PI)')
-    rj = ChoiceItem('RJ', 'Rio de Janeiro (RJ)')
-    rn = ChoiceItem('RN', 'Rio Grande do Norte (RN)')
-    rs = ChoiceItem('RS', 'Rio Grande do Sul (RS)')
-    ro = ChoiceItem('RO', 'Rondônia (RO)')
-    rr = ChoiceItem('RR', 'Roraima (RR)')
-    sc = ChoiceItem('SC', 'Santa Catarina (SC)')
-    sp = ChoiceItem('SP', 'São Paulo (SP)')
-    se = ChoiceItem('SE', 'Sergipe (SE)')
-    to = ChoiceItem('TO', 'Tocantins (TO)')
-
-
+class FederalUnit(models.Model):
+    name = models.CharField(
+        max_length=30, 
+        null=False, 
+        unique=True
+        )
+    
+    class Meta:
+        verbose_name = 'UF'
+        verbose_name_plural = 'Unidades federais'
+    
+    def __str__(self):
+        return self.name
+    
+    
 class City(models.Model):
     name = models.CharField(
         max_length=100,
@@ -39,19 +24,20 @@ class City(models.Model):
         unique=True,
         null=False
         )
-    federal_unit = models.CharField(
-        max_length=2,
-        verbose_name='UF',
-        choices = FederalUnitsChoices.choices,
-        null=False
-    )
+    federal_unit = models.ForeignKey(
+        FederalUnit,
+        on_delete=models.CASCADE
+        )
 
     class Meta:
         verbose_name = 'Cidade'
         verbose_name_plural = 'Cidades'
 
     def __str__(self):
-        return self.name
+        return '{0}.{1}'.format(
+            self.name,
+            self.federal_unit
+            )
 
 
 class Neighborhood(models.Model):
@@ -71,7 +57,7 @@ class Neighborhood(models.Model):
 
 # yes or no choices
 class YesOrNoChoices(DjangoChoices):
-    yes_choice = ChoiceItem('y', 'Sim')
+    yes_choice = ChoiceItem('s', 'Sim')
     no_choice = ChoiceItem('n', 'Não')
 
 
@@ -163,7 +149,7 @@ class Record(models.Model):
         null=False
         )
     gender = models.CharField(
-        max_length=1,
+        max_length=20,
         verbose_name='Gênero',
         choices=Gender.choices,
         default="Não declarado"
