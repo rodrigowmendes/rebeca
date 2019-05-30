@@ -9,6 +9,7 @@ class RecordAdmin(admin.ModelAdmin):
             ('Informações pessoais', {'fields': [
                 'name',
                 'date_of_birth',
+                'age',
                 'race',
                 'neighborhood',
                 'natural_from',
@@ -35,7 +36,6 @@ class RecordAdmin(admin.ModelAdmin):
                 'alcohol_or_drug_user',
                 'old_people_in_family',
                 'health_problems_in_family',
-                'problems_are_treated',
                 ]})
             ]
     search_fields = ('name', 'cpf')
@@ -50,3 +50,4 @@ class RecordAdmin(admin.ModelAdmin):
 
 admin.site.register(models.City)
 admin.site.register(models.Neighborhood)
+admin.site.register(models.SocialBenefit)
