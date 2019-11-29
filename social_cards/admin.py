@@ -9,7 +9,6 @@ class RecordAdmin(admin.ModelAdmin):
             ('Informações pessoais', {'fields': [
                 'name',
                 'date_of_birth',
-                'age',
                 'race',
                 'neighborhood',
                 'natural_from',
