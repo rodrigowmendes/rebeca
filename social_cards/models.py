@@ -1,7 +1,8 @@
 from django.db import models
+from datetime import datetime
 
 
-# Choices
+# Opções
 FEDERAL_UNITS = (
     ('AC', 'Acre (AC)'),
     ('AL', 'Alagoas (AL)'),
@@ -101,7 +102,7 @@ HEALTH_PROBLEMS_IN_FAMILY = (
 )
 
 OPTIONS = (
-    ('Sim ', 'Sim'),
+    ('Sim', 'Sim'),
     ('Não', 'Não'),
 )
 
@@ -149,7 +150,7 @@ class Neighborhood(models.Model):
 
 class SocialBenefit(models.Model):
     name = models.CharField(
-        max_length=20,
+        max_length=100,
         null=False,
         unique=True,
         verbose_name='Nome'
@@ -168,17 +169,12 @@ class Record(models.Model):
         verbose_name = 'Questionário'
         verbose_name_plural = 'Questionários'
 
-
     name = models.CharField(
         max_length=100,
-        verbose_name='Nome da pessoa usuária',
+        verbose_name='Nome usuárix',
         null=False
         )
     date_of_birth = models.DateField(verbose_name='Data de nascimento')
-    age = models.IntegerField(
-        verbose_name='Idade na data do questionário',
-        null=False
-        )
     neighborhood = models.ForeignKey(
         Neighborhood,
         verbose_name='Bairro',
@@ -188,7 +184,8 @@ class Record(models.Model):
     natural_from = models.ForeignKey(
         City,
         verbose_name='Naturalidade',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=False
         )
     cpf = models.CharField(
         max_length=11,
@@ -204,11 +201,10 @@ class Record(models.Model):
         )
     race = models.CharField(
         max_length=20,
-        verbose_name='Cor ou raça',
+        verbose_name='Raça',
         choices=RACES_COLORS,
         default="Não declarada"
         )
-
     scholarity = models.CharField(
         max_length=30,
         verbose_name='Escolaridade',
@@ -230,7 +226,7 @@ class Record(models.Model):
         null=False
         )
     estimated_income = models.CharField(
-        max_length=30,
+        max_length=32,
         choices=ESTIMATED_INCOME,
         verbose_name='Renda estimada',
         )
@@ -256,7 +252,7 @@ class Record(models.Model):
         verbose_name='Tempo de tratamento',
         null=False
         )
-    # use_of_medication
+    # Uso de medicação
     medication_origin = models.CharField(
         max_length=30,
         choices=MEDICATION_ORIGINS,
@@ -264,8 +260,8 @@ class Record(models.Model):
         null=False
     )
     health_problems_in_family= models.CharField(
-            max_length=20,
-            verbose_name="Doenças/ problemas de saúde na família",
+            max_length=30,
+            verbose_name="Doenças na família",
             choices=HEALTH_PROBLEMS_IN_FAMILY,
             null=False
             )
@@ -295,6 +291,7 @@ class Record(models.Model):
             choices=OPTIONS
             )
 
+
     def __str__(self):
         return '{0}.{1}'.format(
             self.name,
@@ -304,5 +301,5 @@ class Record(models.Model):
             self.race,
             self.scholarity,
             self.estimated_income,
-            self.treatment
+            self.treatment,
         )
