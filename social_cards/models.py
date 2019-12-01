@@ -55,7 +55,7 @@ GENRES = (
 
 RACES_COLORS = (
     ('Branca', 'Branca'),
-    ('Preta', 'Preta'),
+    ('Negra', 'Negra'),
     ('Parda', 'Parda'),
     ('Amarela', 'Amarela'),
     ('Indígena', 'Indígena'),
