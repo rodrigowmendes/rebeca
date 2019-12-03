@@ -206,7 +206,7 @@ class Record(models.Model):
         default="Não declarada"
         )
     scholarity = models.CharField(
-        max_length=30,
+        max_length=50,
         verbose_name='Escolaridade',
         choices=SCHOLARITY,
         null=False
