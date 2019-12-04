@@ -1,4 +1,5 @@
 from django.db import models
+from .utils import validate_cpf
 from datetime import datetime
 
 
@@ -165,10 +166,6 @@ class SocialBenefit(models.Model):
 
 
 class Record(models.Model):
-    class Meta:
-        verbose_name = 'Questionário'
-        verbose_name_plural = 'Questionários'
-
     name = models.CharField(
         max_length=100,
         verbose_name='Nome usuárix',
@@ -191,7 +188,8 @@ class Record(models.Model):
         max_length=11,
         verbose_name='CPF ',
         unique=True,
-        null=False
+        null=False,
+        validators=[validate_cpf]
         )
     gender = models.CharField(
         max_length=20,
@@ -291,11 +289,14 @@ class Record(models.Model):
             choices=OPTIONS
             )
 
+    class Meta:
+        verbose_name = 'Questionário'
+        verbose_name_plural = 'Questionários'
+
 
     def __str__(self):
         return '{0}.{1}'.format(
             self.name,
-            self.age,
             self.neighborhood,
             self.gender,
             self.race,
