@@ -166,11 +166,7 @@ class SocialBenefit(models.Model):
 
 
 class Record(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name='Nome usuárix',
-        null=False
-        )
+    name = models.CharField(max_length=100, verbose_name='Nome usuárix', null=False)
     date_of_birth = models.DateField(verbose_name='Data de nascimento')
     neighborhood = models.ForeignKey(
         Neighborhood,
@@ -209,35 +205,12 @@ class Record(models.Model):
         choices=SCHOLARITY,
         null=False
     )
-    debts = models.CharField(
-        max_length=3,
-        verbose_name='Dídivas',
-        choices=OPTIONS
-        )
-    agreement = models.CharField(
-        max_length=3,
-        verbose_name='Possui convênio',
-        choices=OPTIONS
-        )
-    family_composition = models.IntegerField(
-        verbose_name='Composição familiar',
-        null=False
-        )
-    estimated_income = models.CharField(
-        max_length=32,
-        choices=ESTIMATED_INCOME,
-        verbose_name='Renda estimada',
-        )
-    source_of_income = models.CharField(
-        max_length=30,
-        choices=SOURCES_OF_INCOME,
-        verbose_name='Fonte da renda'
-        )
-    social_benefits = models.ManyToManyField(
-        SocialBenefit,
-        verbose_name='Benefícios sociais',
-        blank=True
-        )
+    debts = models.CharField(max_length=3, verbose_name='Dídivas', choices=OPTIONS)
+    agreement = models.CharField(max_length=3, verbose_name='Possui convênio', choices=OPTIONS)
+    family_composition = models.IntegerField(verbose_name='Composição familiar', null=False)
+    estimated_income = models.CharField(max_length=32, choices=ESTIMATED_INCOME, verbose_name='Renda estimada')
+    source_of_income = models.CharField(max_length=30, choices=SOURCES_OF_INCOME, verbose_name='Fonte da renda')
+    social_benefits = models.ManyToManyField(SocialBenefit, verbose_name='Benefícios sociais', blank=True)
     housing_condition = models.CharField(
         max_length=30,
         choices=HOUSING_CONDITIONS,
@@ -263,31 +236,11 @@ class Record(models.Model):
             choices=HEALTH_PROBLEMS_IN_FAMILY,
             null=False
             )
-    old_people_in_family = models.CharField(
-            max_length=3,
-            verbose_name="Idosos na família",
-            choices=OPTIONS
-            )
-    disabled_in_family = models.CharField(
-            max_length=3,
-            verbose_name="Deficientes na família",
-            choices=OPTIONS
-            )
-    early_pregnancy = models.CharField(
-            max_length=3,
-            verbose_name="Gravidez precoce",
-            choices=OPTIONS
-            )
-    pregnant_or_lactating = models.CharField(
-            max_length=3,
-            verbose_name="Gestante ou lactante",
-            choices=OPTIONS
-            )
-    alcohol_or_drug_user = models.CharField(
-            max_length=3,
-            verbose_name="Usuário de álcool ou drogas",
-            choices=OPTIONS
-            )
+    old_people_in_family = models.CharField(max_length=3, verbose_name="Idosos na família", choices=OPTIONS)
+    disabled_in_family = models.CharField(max_length=3, verbose_name="Deficientes na família", choices=OPTIONS)
+    early_pregnancy = models.CharField(max_length=3, verbose_name="Gravidez precoce", choices=OPTIONS)
+    pregnant_or_lactating = models.CharField(max_length=3, verbose_name="Gestante ou lactante", choices=OPTIONS)
+    alcohol_or_drug_user = models.CharField(max_length=3, verbose_name="Usuário de álcool ou drogas", choices=OPTIONS)
 
     class Meta:
         verbose_name = 'Questionário'
