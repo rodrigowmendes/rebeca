@@ -5,7 +5,7 @@ services:
     image: postgres
   web:
     build: .
-    command: python3 manage.py runserver 0.0.0.0:8000 --settings=local_settings
+    command: python3 manage.py runserver 0.0.0.0:8000 --settings=rebeca.local_settings
     volumes:
       - .:/code
     ports:
