@@ -12,10 +12,6 @@ Mude de diretório:
 
 `$ cd rebeca`
 
-Altere a branch:
-
-`$ git checkout develop`
-
 
 Inicie a aplicação usando docker-compose (necessário ter o Docker e o docker-compose instalados):
 
