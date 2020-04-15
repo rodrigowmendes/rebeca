@@ -1,6 +1,6 @@
 # Rebeca
 
-Uma aplicação Django para coleta de dados socioeconômicos
+Uma aplicação Django para coleta de dados socioeconômicos de usuários da rede pública de saúde
 
 ## Instalação: 
 
@@ -13,14 +13,14 @@ Mude de diretório:
 `$ cd rebeca`
 
 
-Inicie a aplicação usando docker-compose (necessário ter o Docker e o docker-compose instalados):
+Construa a aplicação usando docker-compose (necessário ter o Docker e o docker-compose instalados):
 
-`$ sudo docker-compose up`
+`$ sudo docker-compose -f docker-compose.yml build web`
 
 
 Crie o banco de dados:
 
-`$ sudo docker-compose run web python3 manage.py migrate` 
+`$ sudo docker-compose -f docker-compose.yml run web python3 manage.py migrate` 
 
 
 Crie um superusuário:
