@@ -1,4 +1,0 @@
-Django>=2.1.5
-django-choices>=1.6.2
-psycopg2==2.7.2
-validate-docbr>=1.6.0

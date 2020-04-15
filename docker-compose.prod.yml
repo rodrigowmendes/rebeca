@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: gunicorn rebeca.wsgi --bind 0.0.0.0:8000
+    volumes:
+      - .:/code
+    restart: always
+    ports:
+      - "8000:8000"
+
