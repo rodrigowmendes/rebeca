@@ -11,7 +11,7 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing..'
-                sh 'ls -la'
+                sh 'ls'
             }
         }
         stage('Deploy') {
