@@ -12,7 +12,7 @@ services:
   web:
     image: rodrigowmendes/rebeca
     environment:
-      DEBUG: 'true'
+      - DEBUG=${DEBUG}
       - SECRET_KEY=${SECRET_KEY}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
