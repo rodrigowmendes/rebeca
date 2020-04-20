@@ -1,11 +1,18 @@
 pipeline {
+    environment {
+        registry = "rodrigowmendes/rodrigowmendes/rebeca"
+        registryCredential = "Dockerhub"
+    }
     agent any
 
     stages {
-        stage('Build') {
+        stage('Building image') {
             steps {
                 echo 'Building..'
                 sh 'python3 --version'
+                script {
+                    docker.build registry + ":$BUILD_NUMBER"
+                }
             }
         }
         stage('Test') {
