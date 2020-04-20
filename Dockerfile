@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:latest
 ENV PYTHONNUNBEFFERED 1
 RUN mkdir /code
 WORKDIR /code
