@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "rodrigowmendes/rebeca"
+        registry = "https://registry-1.docker.io/v2/"
         registryCredential = "Dockerhub"
     }
     agent any
@@ -11,7 +11,7 @@ pipeline {
                 echo 'Building..'
                 sh 'python3 --version'
                 script {
-                    docker.withCredentials(registryCredential) {
+                    docker.withCredentials(registry, registryCredential) {
                         def customImage = docker.build("rodrigowmendes/rebeca:${env.BUILD_ID}")
                         /* Push the container to the custom Registry */
                         customImage.push()
