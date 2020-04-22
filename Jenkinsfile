@@ -11,8 +11,11 @@ pipeline {
                 echo 'Building..'
                 sh 'python3 --version'
                 script {
-                    docker.build registry + ":$BUILD_NUMBER"
-                    docker.push registry + ":$BUILD_NUMBER"
+                    docker.withRegistry(registry, registryCredential) {
+                        def customImage = docker.build("rodrigowmendes/rebeca:${env.BUILD_ID}")
+                        /* Push the container to the custom Registry */
+                        customImage.push()
+                    }
                 }
             }
         }
