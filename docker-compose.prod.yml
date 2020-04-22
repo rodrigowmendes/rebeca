@@ -2,11 +2,16 @@ version: '3'
 
 services:
   web:
-    build: .
+    image: rodrigowmendes/rebeca
+    environment:
+      - DEBUG=${DEBUG}
+      - SECRET_KEY=${SECRET_KEY}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DATABASE_URL=${DATABASE_URL}
     command: gunicorn rebeca.wsgi --bind 0.0.0.0:8000
-    volumes:
-      - .:/code
-    restart: always
+    restart: on-failure
     ports:
       - "8000:8000"
 
