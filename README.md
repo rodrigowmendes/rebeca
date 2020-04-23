@@ -13,17 +13,31 @@ Mude de diretório:
 `$ cd rebeca`
 
 
-Suba a aplicação usando docker-compose (necessário ter o Docker e o docker-compose instalados):
+Crie seu ambinente virtual:
 
-`$ sudo docker-compose up -d`
+`$ python3 -m virtualenv venv`
+
+Ative-o:
+
+`$ source /venv/bin/activate`
 
 
-Crie o banco de dados:
+Instale as dependências:
 
-`$ sudo docker-compose run web python3 manage.py migrate` 
+`$ pip3 install -r requirements.txt`
+
+
+Crie o arquivo para as variáveis de ambiente:
+
+`$ cp .env.example .env`
+
+
+Crie o banco de dados (necessário ter o PostgreSQL instalado localmente):
+
+`$ python3 manage.py migrate` 
 
 
 Crie um superusuário:
 
-`$ sudo docker-compose run web python3 manage.py createsuperuser`  
+`$ python3 manage.py createsuperuser`  
 
