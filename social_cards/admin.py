@@ -51,3 +51,6 @@ class RecordAdmin(admin.ModelAdmin):
 admin.site.register(models.City)
 admin.site.register(models.Neighborhood)
 admin.site.register(models.SocialBenefit)
+admin.site.register(models.Scolarity)
+admin.site.register(models.Race)
+admin.site.register(models.Genre)

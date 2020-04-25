@@ -34,33 +34,49 @@ FEDERAL_UNITS = (
     ('TO', 'Tocantins (TO)'),
     )
 
-SCHOLARITY = (
-    ('Ensino Fundamental incompleto', 'Ensino Fundamental incompleto'),
-    ('Ensino Fundamental em andamento', 'Ensino Fundamental em andamento'),
-    ('Ensino Fundamental completo', 'Ensino Fundamental completo'),
-    ('Ensino Médio incompleto', 'Ensino Médio incompleto'),
-    ('Ensino Médio em andamento', 'Ensino Médio em andamento'),
-    ('Ensino Médio completo', 'Ensino Médio completo'),
-    ('Ensino Superior incompleto', 'Ensino Superior incompleto'),
-    ('Ensino Superior em andamento', 'Ensino Superior em andamento'),
-    ('Ensino Superior completo', 'Ensino Superior completo'),
-)
+class Scolarity(models.Model):
+    description = models.CharField(max_length=50,
+                                   unique=True,
+                                   null=False)
 
-GENRES = (
-    ('Masculino', 'Masculino'),
-    ('Feminino', 'Feminino'),
-    ('Transgênero', 'Transgênero'),
-    ('Não binário', 'Não binário'),
-    ('Outros', 'Outros'),
-)
+    class Meta:
+        verbose_name  ='Escolaridade'
+        verbose_name_plural = 'Escolaridades'
+    
+    def __str__(self):
+        return '{0}.{1}'.format(
+            self.description
+        )
 
-RACES_COLORS = (
-    ('Branca', 'Branca'),
-    ('Negra', 'Negra'),
-    ('Parda', 'Parda'),
-    ('Amarela', 'Amarela'),
-    ('Indígena', 'Indígena'),
-)
+
+class Genre(models.Model):
+    description = models.CharField(max_length=20,
+                                   unique=True,
+                                   null=False)
+
+    class Meta:
+        verbose_name='Gênero'
+        verbose_name_plural='Gêneros'
+
+    def __str__(self):
+        return '{0}.{1}'.format(
+            self.description
+        )
+
+class Race(models.Model):
+    description = models.CharField(max_length=20,
+                                   unique=True,
+                                   null=False)
+
+    class Meta:
+        verbose_name='Raça'
+        verbose_name_plural='Raças'
+
+    def __str__(self):
+        return '{0}.{1}'.format(
+            self.description
+        )
+
 
 SOURCES_OF_INCOME = (
     ('Informal apenas', 'Informal apenas'),
@@ -175,17 +191,17 @@ class Record(models.Model):
                            unique=True,
                            null=False,
                            validators=[validate_cpf])
-    gender = models.CharField(max_length=20,
-                              verbose_name='Gênero',
-                              choices=GENRES,
-                              default="Não declarado")
-    race = models.CharField(max_length=20,
+    gender = models.ForeignKey(Genre, 
+                               verbose_name='Gênero',
+                               on_delete=models.CASCADE,
+                               null=False)
+    race = models.ForeignKey(Race,
                             verbose_name='Raça',
-                            choices=RACES_COLORS,
-                            default="Não declarada")
-    scholarity = models.CharField(max_length=50,
+                            on_delete=models.CASCADE,
+                            null=False)
+    scholarity = models.ForeignKey(Scolarity,
                                   verbose_name='Escolaridade',
-                                  choices=SCHOLARITY,
+                                  on_delete=models.CASCADE,
                                   null=False)
     debts = models.CharField(max_length=3, 
                              verbose_name='Dídivas', 
