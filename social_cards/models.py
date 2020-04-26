@@ -34,49 +34,33 @@ FEDERAL_UNITS = (
     ('TO', 'Tocantins (TO)'),
     )
 
-class Scolarity(models.Model):
-    description = models.CharField(max_length=50,
-                                   unique=True,
-                                   null=False)
+SCHOLARITY = (
+    ('Ensino Fundamental incompleto', 'Ensino Fundamental incompleto'),
+    ('Ensino Fundamental em andamento', 'Ensino Fundamental em andamento'),
+    ('Ensino Fundamental completo', 'Ensino Fundamental completo'),
+    ('Ensino Médio incompleto', 'Ensino Médio incompleto'),
+    ('Ensino Médio em andamento', 'Ensino Médio em andamento'),
+    ('Ensino Médio completo', 'Ensino Médio completo'),
+    ('Ensino Superior incompleto', 'Ensino Superior incompleto'),
+    ('Ensino Superior em andamento', 'Ensino Superior em andamento'),
+    ('Ensino Superior completo', 'Ensino Superior completo'),
+)
 
-    class Meta:
-        verbose_name  ='Escolaridade'
-        verbose_name_plural = 'Escolaridades'
-    
-    def __str__(self):
-        return '{0}.{1}'.format(
-            self.description
-        )
+GENRES = (
+    ('Masculino', 'Masculino'),
+    ('Feminino', 'Feminino'),
+    ('Transgênero', 'Transgênero'),
+    ('Não binário', 'Não binário'),
+    ('Outros', 'Outros'),
+)
 
-
-class Genre(models.Model):
-    description = models.CharField(max_length=20,
-                                   unique=True,
-                                   null=False)
-
-    class Meta:
-        verbose_name='Gênero'
-        verbose_name_plural='Gêneros'
-
-    def __str__(self):
-        return '{0}.{1}'.format(
-            self.description
-        )
-
-class Race(models.Model):
-    description = models.CharField(max_length=20,
-                                   unique=True,
-                                   null=False)
-
-    class Meta:
-        verbose_name='Raça'
-        verbose_name_plural='Raças'
-
-    def __str__(self):
-        return '{0}.{1}'.format(
-            self.description
-        )
-
+RACES_COLORS = (
+    ('Branca', 'Branca'),
+    ('Negra', 'Negra'),
+    ('Parda', 'Parda'),
+    ('Amarela', 'Amarela'),
+    ('Indígena', 'Indígena'),
+)
 
 SOURCES_OF_INCOME = (
     ('Informal apenas', 'Informal apenas'),
