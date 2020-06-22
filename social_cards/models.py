@@ -2,7 +2,6 @@ from django.db import models
 from .utils import validate_cpf
 from datetime import datetime
 
-
 # Opções
 FEDERAL_UNITS = (
     ('AC', 'Acre (AC)'),
@@ -32,7 +31,7 @@ FEDERAL_UNITS = (
     ('SP', 'São Paulo (SP)'),
     ('SE', 'Sergipe (SE)'),
     ('TO', 'Tocantins (TO)'),
-    )
+)
 
 SCHOLARITY = (
     ('Ensino Fundamental incompleto', 'Ensino Fundamental incompleto'),
@@ -107,7 +106,7 @@ OPTIONS = (
     ('Não', 'Não'),
 )
 
-    
+
 class City(models.Model):
     name = models.CharField(max_length=100,
                             verbose_name='Nome da cidade',
@@ -115,7 +114,7 @@ class City(models.Model):
                             null=False)
     federal_unit = models.CharField(max_length=2,
                                     verbose_name='UF',
-                                    choices = FEDERAL_UNITS,
+                                    choices=FEDERAL_UNITS,
                                     null=False)
 
     class Meta:
@@ -126,7 +125,7 @@ class City(models.Model):
         return '{0}.{1}'.format(
             self.name,
             self.federal_unit
-            )
+        )
 
 
 class Neighborhood(models.Model):
@@ -158,8 +157,8 @@ class SocialBenefit(models.Model):
 
 
 class Record(models.Model):
-    name = models.CharField(max_length=100, 
-                            verbose_name='Nome usuárix', 
+    name = models.CharField(max_length=100,
+                            verbose_name='Nome usuárix',
                             null=False)
     date_of_birth = models.DateField(verbose_name='Data de nascimento')
     neighborhood = models.ForeignKey(Neighborhood,
@@ -175,34 +174,34 @@ class Record(models.Model):
                            unique=True,
                            null=False,
                            validators=[validate_cpf])
-    gender = models.ForeignKey(Genre, 
+    gender = models.ForeignKey(Genre,
                                verbose_name='Gênero',
                                on_delete=models.CASCADE,
                                null=False)
     race = models.ForeignKey(Race,
-                            verbose_name='Raça',
-                            on_delete=models.CASCADE,
-                            null=False)
+                             verbose_name='Raça',
+                             on_delete=models.CASCADE,
+                             null=False)
     scholarity = models.ForeignKey(Scolarity,
-                                  verbose_name='Escolaridade',
-                                  on_delete=models.CASCADE,
-                                  null=False)
-    debts = models.CharField(max_length=3, 
-                             verbose_name='Dídivas', 
+                                   verbose_name='Escolaridade',
+                                   on_delete=models.CASCADE,
+                                   null=False)
+    debts = models.CharField(max_length=3,
+                             verbose_name='Dídivas',
                              choices=OPTIONS)
-    agreement = models.CharField(max_length=3, 
-                                 verbose_name='Possui convênio', 
+    agreement = models.CharField(max_length=3,
+                                 verbose_name='Possui convênio',
                                  choices=OPTIONS)
-    family_composition = models.IntegerField(verbose_name='Composição familiar', 
+    family_composition = models.IntegerField(verbose_name='Composição familiar',
                                              null=False)
-    estimated_income = models.CharField(max_length=32, 
-                                        choices=ESTIMATED_INCOME, 
+    estimated_income = models.CharField(max_length=32,
+                                        choices=ESTIMATED_INCOME,
                                         verbose_name='Renda estimada')
-    source_of_income = models.CharField(max_length=30, 
-                                        choices=SOURCES_OF_INCOME, 
+    source_of_income = models.CharField(max_length=30,
+                                        choices=SOURCES_OF_INCOME,
                                         verbose_name='Fonte da renda')
-    social_benefits = models.ManyToManyField(SocialBenefit, 
-                                             verbose_name='Benefícios sociais', 
+    social_benefits = models.ManyToManyField(SocialBenefit,
+                                             verbose_name='Benefícios sociais',
                                              blank=True)
     housing_condition = models.CharField(max_length=30,
                                          choices=HOUSING_CONDITIONS,
@@ -217,30 +216,29 @@ class Record(models.Model):
                                          choices=MEDICATION_ORIGINS,
                                          verbose_name='Origem da medicação',
                                          null=False)
-    health_problems_in_family= models.CharField(max_length=30,
-                                                verbose_name="Doenças na família",
-                                                choices=HEALTH_PROBLEMS_IN_FAMILY,
-                                                null=False)
-    old_people_in_family = models.CharField(max_length=3, 
-                                            verbose_name="Idosos na família", 
+    health_problems_in_family = models.CharField(max_length=30,
+                                                 verbose_name="Doenças na família",
+                                                 choices=HEALTH_PROBLEMS_IN_FAMILY,
+                                                 null=False)
+    old_people_in_family = models.CharField(max_length=3,
+                                            verbose_name="Idosos na família",
                                             choices=OPTIONS)
-    disabled_in_family = models.CharField(max_length=3, 
-                                          verbose_name="Deficientes na família", 
+    disabled_in_family = models.CharField(max_length=3,
+                                          verbose_name="Deficientes na família",
                                           choices=OPTIONS)
-    early_pregnancy = models.CharField(max_length=3, 
-                                       verbose_name="Gravidez precoce", 
+    early_pregnancy = models.CharField(max_length=3,
+                                       verbose_name="Gravidez precoce",
                                        choices=OPTIONS)
-    pregnant_or_lactating = models.CharField(max_length=3, 
-                                             verbose_name="Gestante ou lactante", 
+    pregnant_or_lactating = models.CharField(max_length=3,
+                                             verbose_name="Gestante ou lactante",
                                              choices=OPTIONS)
-    alcohol_or_drug_user = models.CharField(max_length=3, 
-                                            verbose_name="Usuário de álcool ou drogas", 
+    alcohol_or_drug_user = models.CharField(max_length=3,
+                                            verbose_name="Usuário de álcool ou drogas",
                                             choices=OPTIONS)
 
     class Meta:
         verbose_name = 'Questionário'
         verbose_name_plural = 'Questionários'
-
 
     def __str__(self):
         return '{0}.{1}'.format(
