@@ -1,4 +1,4 @@
-# Rebeca
+# Dados Sociais
 
 Uma aplicação Django para coleta de dados socioeconômicos de usuários da rede pública de saúde
 
@@ -6,11 +6,11 @@ Uma aplicação Django para coleta de dados socioeconômicos de usuários da red
 
 Clone o repositório:
 
-`$ git clone https://github.com/rodrigowmendes/rebeca.git`
+`$ git clone https://github.com/rodrigowmendes/dados-sociais.git`
 
 Mude de diretório:
 
-`$ cd rebeca`
+`$ cd dados-sociais`
 
 
 Crie seu ambinente virtual:
