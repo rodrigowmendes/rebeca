@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class SocialCardsConfig(AppConfig):
-    name = 'social_cards'
+class RecordsConfig(AppConfig):
+    name = 'records'
     verbose_name = 'Fichas sociais'
     

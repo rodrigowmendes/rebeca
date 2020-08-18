@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import social_cards.utils
+import records.utils
 
 
 class Migration(migrations.Migration):
@@ -86,7 +86,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100, verbose_name='Nome usuárix')),
                 ('date_of_birth', models.DateField(verbose_name='Data de nascimento')),
-                ('cpf', models.CharField(max_length=11, unique=True, validators=[social_cards.utils.validate_cpf], verbose_name='CPF ')),
+                ('cpf', models.CharField(max_length=11, unique=True, validators=[records.utils.validate_cpf], verbose_name='CPF ')),
                 ('debts', models.CharField(choices=[('Sim', 'Sim'), ('Não', 'Não')], max_length=3, verbose_name='Dídivas')),
                 ('agreement', models.CharField(choices=[('Sim', 'Sim'), ('Não', 'Não')], max_length=3, verbose_name='Possui convênio')),
                 ('family_composition', models.IntegerField(verbose_name='Composição familiar')),
@@ -101,12 +101,12 @@ class Migration(migrations.Migration):
                 ('early_pregnancy', models.CharField(choices=[('Sim', 'Sim'), ('Não', 'Não')], max_length=3, verbose_name='Gravidez precoce')),
                 ('pregnant_or_lactating', models.CharField(choices=[('Sim', 'Sim'), ('Não', 'Não')], max_length=3, verbose_name='Gestante ou lactante')),
                 ('alcohol_or_drug_user', models.CharField(choices=[('Sim', 'Sim'), ('Não', 'Não')], max_length=3, verbose_name='Usuário de álcool ou drogas')),
-                ('gender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='social_cards.Genre', verbose_name='Gênero')),
-                ('natural_from', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='social_cards.City', verbose_name='Naturalidade')),
-                ('neighborhood', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='social_cards.Neighborhood', verbose_name='Bairro')),
-                ('race', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='social_cards.Race', verbose_name='Raça')),
-                ('scholarity', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='social_cards.Scolarity', verbose_name='Escolaridade')),
-                ('social_benefits', models.ManyToManyField(blank=True, to='social_cards.SocialBenefit', verbose_name='Benefícios sociais')),
+                ('gender', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='records.Genre', verbose_name='Gênero')),
+                ('natural_from', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='records.City', verbose_name='Naturalidade')),
+                ('neighborhood', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='records.Neighborhood', verbose_name='Bairro')),
+                ('race', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='records.Race', verbose_name='Raça')),
+                ('scholarity', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='records.Scolarity', verbose_name='Escolaridade')),
+                ('social_benefits', models.ManyToManyField(blank=True, to='records.SocialBenefit', verbose_name='Benefícios sociais')),
             ],
             options={
                 'verbose_name': 'Questionário',
